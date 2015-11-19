@@ -37,10 +37,9 @@ public class DataManager {
     public Connection getConnection() {
         Connection conn = null;
         try {
-            //conn = DriverManager.getConnection(getDbURL(), getDbUserName(), getDbPassword());
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.25.3:1521:ora", "shatura1", "shat1");
-        }
+            conn = DriverManager.getConnection(getDbURL(), getDbUserName(), getDbPassword());
+         }
         catch (Exception e) {
             System.out.println("Could not connect to DB: " + e.getMessage());
         }

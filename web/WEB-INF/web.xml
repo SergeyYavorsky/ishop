@@ -8,7 +8,7 @@
         <servlet-class>ActionServlet</servlet-class>
         <init-param>
             <param-name>dbURL</param-name>
-            <param-value>jdbc:oracle:thin:@192.168.25.3:1521:ora</param-value>
+            <param-value>jdbc:oracle:thin:@192.168.25.5:1521:ora</param-value>
         </init-param>
         <init-param>
             <param-name>dbUserName</param-name>
