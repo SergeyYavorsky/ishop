@@ -44,6 +44,7 @@ public class ActionServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        response.setCharacterEncoding("UTF-8");
         StringBuilder sb = new StringBuilder("{\"elements\": [{\"type\": \"bar_glass\", \"values\" : [");
         try {
             Statement stmt = conn.createStatement();
@@ -61,15 +62,32 @@ public class ActionServlet extends HttpServlet {
             ArrayList<String> names = new ArrayList<String>();
             ArrayList<String> tags = new ArrayList<String>();
             int i = 0;
+            int maxSumma = 0;
+            String total = "";
             while (rs.next()) {
                 summas.add(rs.getString("SUMMA"));
+                if (maxSumma < rs.getInt("SUMMA")) {
+                    maxSumma = rs.getInt("SUMMA");
+                }
                 names.add("\""+rs.getString("NAME")+"\"");
                 i++;
-                tags.add("{\"x\":" + Integer.toString(i) + ",\"y\":"+rs.getString("SUMMA")+",\"text\":\""+rs.getString("PRCNT")+"%\"}");
+                tags.add("{\"x\":" + Integer.toString(i) + ",\"y\":" + rs.getString("SUMMA") + ",\"text\":\"" +rs.getString("PRCNT")+"%\"}");
+                if (total == "") {
+                    total = "Всего: " + rs.getString("TOTAL");
+                }
             }
             sb.append(implode(summas));
             sb.append("],\"on-show\":{\"type\":\"pop\",\"cascade\":1,\"delay\":0.5}},{\"type\":\"tags\",\"values\":[");
             sb.append(implode(tags));
+            sb.append("],\"font\":\"Verdana\",\"font-size\":12,\"colour\":\"#000000\",\"align-x\":\"center\"}],\"x_axis\":{\n" +
+                    "    \"labels\": { \"size\": 14, \"labels\": [");
+            sb.append(implode(names));
+            int mult = (int) Math.pow(10, (""+maxSumma).length()-1);
+            sb.append("]}\n" +
+                    "  }, \"y_axis\": { \"min\": 0, \"max\": ");
+            sb.append(""+(Math.ceil(maxSumma / mult) * mult));
+
+            sb.append(",\"steps\":" + mult + " },\"myTitle\":\""+ total +"\"}");
         }
         catch (SQLException e) {
             System.out.println("Could not insert order: " + e.getMessage());
