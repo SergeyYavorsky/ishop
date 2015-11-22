@@ -58,7 +58,7 @@
             };
 
             setData(1);
-            
+
             setInterval(function() {
                 if (pageNum < 4) {
                     pageNum++;

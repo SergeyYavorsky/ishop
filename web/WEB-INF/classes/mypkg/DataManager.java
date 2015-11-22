@@ -13,6 +13,10 @@ public class DataManager {
         this.dbURL = dbURL;
         this.dbUserName = dbUserName;
         this.dbPassword = dbPassword;
+
+    }
+
+    private void initConnection() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(getDbURL(), getDbUserName(), getDbPassword());
@@ -56,6 +60,9 @@ public class DataManager {
     }
 
     public String getData(int pageNum) {
+        if (conn == null) {
+            initConnection();
+        }
         StringBuilder sb = new StringBuilder("{\"elements\": [{\"type\": \"bar_glass\", \"values\" : [");
         try {
             Statement stmt = conn.createStatement();
