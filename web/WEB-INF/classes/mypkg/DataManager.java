@@ -95,7 +95,7 @@ public class DataManager {
             ArrayList<String> summas = new ArrayList<String>();
             ArrayList<String> names = new ArrayList<String>();
             ArrayList<String> tags = new ArrayList<String>();
-            int i = 0;
+            int i = -1;
             int maxSumma = 0;
             String total = "";
             while (rs.next()) {

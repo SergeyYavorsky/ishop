@@ -7,7 +7,6 @@
         <element id="directory" name="classes">
           <element id="module-output" name="ishop" />
         </element>
-        <element id="dir-copy" path="$PROJECT_DIR$/web/WEB-INF/lib" />
         <element id="directory" name="lib">
           <element id="library" level="project" name="ojdbc6" />
           <element id="library" level="project" name="orai18n" />

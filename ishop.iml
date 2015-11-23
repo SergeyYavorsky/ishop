@@ -20,8 +20,6 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/web/WEB-INF/classes" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/web/WEB-INF/lib" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/web/js" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -36,7 +34,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.28" level="application_server_libraries" />
-    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="ojdbc6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="orai18n" level="project" />
   </component>

@@ -1,0 +1,52 @@
+html, body, div, td p, td ol {margin:0; padding:0; overflow: hidden;
+font: 11px Verdana,Arial,Helvetica,sans-serif;}
+
+div#header {
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  height:42px;
+  //background:#4297D7;
+  //color:black;
+  padding: 1px;
+  min-width: 1000px;
+}
+
+div#frame {
+  position: absolute;
+  top:44px;
+  left:0;
+  right:0;
+  bottom:16px;
+  //overflow-y: scroll;
+}
+
+div#footer {
+  position:absolute;
+  bottom:0px;
+  height: 16px;
+  //background:#4297D7;
+  //color:black;
+  width: 100%;}
+
+ 
+#header img {
+  float: left;
+  margin: 1px 8px;
+}
+
+#my_chart, #my_table {
+  position: absolute;
+  //margin:10px auto;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  height: 98%;
+  width: 98%;
+}
+
+th {padding: 2px;}
+
+td,th  {font-size: 120%}
