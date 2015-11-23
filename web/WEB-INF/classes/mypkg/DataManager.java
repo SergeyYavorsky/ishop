@@ -1,5 +1,14 @@
 package mypkg;
 
+import javax.servlet.ServletContext;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -129,5 +138,42 @@ public class DataManager {
             System.out.println("Error: " + e.getMessage());
         }
         return sb.toString();
+    }
+
+    public String getTable(int tableNum) {
+        String ret = "";
+        if (conn == null) {
+            initConnection();
+        }
+        try {
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery("select '<t>' || to_clob(" +
+                    "xmlconcat(\n" +
+                    "insertchildxml(xmltype('<table1/>'), '/table1', 'ROWSET',\n" +
+                    "dbms_xmlgen.getXMLType('select\n" +
+                    "  t.day, t.cnt_c, t.cnt_missed, t.cnt_o, round(t.sum_o) sum_o, t.cnt_t, round(t.sum_t) sum_t \n" +
+                    "from\n" +
+                    "  ord_retail_shop_day_rate_vw t\n" +
+                    "order by 1')),\n" +
+                    "insertchildxml(xmltype('<table2/>'), '/table2', 'ROWSET',\n" +
+                    "dbms_xmlgen.getXMLType('select\n" +
+                    "    nvl((select target from plan_ishop_target t where t.plan_month = trunc(sysdate,''month'')), 10000000) target,\n" +
+                    "    to_number(to_char(sysdate, ''fmDD'')) worked_days,\n" +
+                    "    to_number(to_char(last_day(sysdate), ''fmDD'')) days_in_month\n" +
+                    "    from dual'))\n" +
+                    "    )) || '</t>' val from dual");
+
+            rs.next();
+            ret = rs.getString("VAL");
+            System.out.println(ret);
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
+        return ret;
     }
 }
