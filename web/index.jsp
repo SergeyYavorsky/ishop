@@ -21,8 +21,9 @@
         }
 
         function findSWF(movieName) {
-            if (navigator.appName.indexOf("Microsoft") != -1) {
-                return window[movieName];
+            if (navigator.appName.indexOf("Microsoft") != -1 || (navigator.appName.indexOf("MS") != -1)) {
+                return document[movieName];
+                //return window[movieName];
             } else {
                 return document[movieName];
             }
@@ -57,16 +58,32 @@
                 });
             };
 
-            setData(1);
+            setTimeout(setData(1), 3000);
 
             setInterval(function() {
-                if (pageNum < 4) {
+                if (pageNum < 5) {
                     pageNum++;
                 } else {
                     pageNum = 1;
                 }
-                setData(pageNum);
-            }, 10000);
+                if (pageNum==5) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ActionServlet',
+                        data: 'pageNum=5',
+                        success: function(d){
+                            $("#my_chart").hide();
+                            $("#my_table").html(d).show();
+                            setTitle("Отгрузки по дням");
+                        },
+                        async:false
+                    });
+                } else {
+                    $("#my_table").hide();
+                    $("#my_chart").show();
+                    setData(pageNum);
+                }
+            }, 30000);
 
 
         });

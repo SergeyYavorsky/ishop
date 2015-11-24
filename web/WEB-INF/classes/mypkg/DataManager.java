@@ -29,6 +29,8 @@ public class DataManager {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(getDbURL(), getDbUserName(), getDbPassword());
+            Statement stmt = conn.createStatement();
+            stmt.execute("ALTER SESSION SET NLS_LANGUAGE= 'AMERICAN' NLS_TERRITORY= 'AMERICA' NLS_DATE_FORMAT='DD/MM/RRRR'");
         } catch (Exception e) {
             System.out.println("Could not connect to DB: " + e.getMessage());
         }
@@ -153,7 +155,7 @@ public class DataManager {
                     "xmlconcat(\n" +
                     "insertchildxml(xmltype('<table1/>'), '/table1', 'ROWSET',\n" +
                     "dbms_xmlgen.getXMLType('select\n" +
-                    "  t.day, t.cnt_c, t.cnt_missed, t.cnt_o, round(t.sum_o) sum_o, t.cnt_t, round(t.sum_t) sum_t \n" +
+                    "  t.day, t.cnt_c, t.cnt_missed, t.cnt_o, (t.sum_o) sum_o, t.cnt_t, (t.sum_t) sum_t \n" +
                     "from\n" +
                     "  ord_retail_shop_day_rate_vw t\n" +
                     "order by 1')),\n" +
@@ -167,7 +169,7 @@ public class DataManager {
 
             rs.next();
             ret = rs.getString("VAL");
-            System.out.println(ret);
+            //System.out.println(ret);
             stmt.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
