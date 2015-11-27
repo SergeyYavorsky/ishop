@@ -121,6 +121,8 @@ public class DataManager {
                     total = rs.getString("TOTAL");
                 }
             }
+            rs.close();
+            stmt.close();
             title.append(total);
             title.append(" руб.");
             sb.append(implode(summas));
@@ -170,6 +172,7 @@ public class DataManager {
             rs.next();
             ret = rs.getString("VAL");
             //System.out.println(ret);
+            rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
